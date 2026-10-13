@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<root>
+    <name>Smooth Sudo (Re-authentication)</name>
+    <key>stab</key>
+    <state>stable</state>
+    <logo>https://github.com/cconard96/glpi-smoothsudo-plugin/main/logo.png</logo>
+    <description>
+        <short>
+            <en>Modifies the re-authentication behavior to provide a smoother user experience without sacrificing much security.</en>
+        </short>
+        <long>
+            <en><![CDATA[
+The original intention of the re-authentication feature is to provide a security measure that prevents unauthorized users from using another user's device after they walk away without having locked their session.
+It is the belief of the plugin's author that the current implementation may be too disruptive to the user experience, and the primary responsibility of preventing attacks of this nature lies with the OS or device configuration through automatic locking policies.
+After logging in, there is a grace period of 1 minute where the user can perform actions that require re-authentication without being prompted for their password.
+Each time a user navigates to a page, the grace period is reset. This means instead of a strict 15 minute grace period, it becomes a rolling 15 minute grace period with the re-authentication prompt occuring 15 minutes after being idle.
+        ]]></en>
+        </long>
+    </description>
+    <homepage>https://github.com/cconard96/glpi-smoothsudo-plugin</homepage>
+    <download>https://github.com/cconard96/glpi-smoothsudo-plugin/releases</download>
+    <issues>https://github.com/cconard96/glpi-smoothsudo-plugin/issues</issues>
+    <readme>https://github.com/cconard96/glpi-smoothsudo-plugin/blob/main/README.md</readme>
+    <authors>
+        <author>Curtis Conard</author>
+    </authors>
+    <versions>
+        <version>
+            <num>1.0.0</num>
+            <compatibility>~12.0.0</compatibility>
+            <download_url>https://github.com/cconard96/glpi-smoothsudo-plugin/releases/download/v1.0.0/glpi-smoothsudo-v1.0.0.tar.bz2</download_url>
+        </version>
+    </versions>
+    <langs>
+        <lang>ar_SA</lang>
+        <lang>be_BY</lang>
+        <lang>bg_BG</lang>
+        <lang>ca_ES</lang>
+        <lang>cs_CZ</lang>
+        <lang>da_DK</lang>
+        <lang>de_DE</lang>
+        <lang>el_GR</lang>
+        <lang>el_GR</lang>
+        <lang>en_US</lang>
+        <lang>es_419</lang>
+        <lang>es_AR</lang>
+        <lang>es_CL</lang>
+        <lang>es_CO</lang>
+        <lang>es_ES</lang>
+        <lang>es_MX</lang>
+        <lang>es_VE</lang>
+        <lang>et_EE</lang>
+        <lang>eu_ES</lang>
+        <lang>fa_IR</lang>
+        <lang>fi_FI</lang>
+        <lang>fr_BE</lang>
+        <lang>fr_CA</lang>
+        <lang>fr_FR</lang>
+        <lang>gl_ES</lang>
+        <lang>he_IL</lang>
+        <lang>hi_IN</lang>
+        <lang>hr_HR</lang>
+        <lang>hu_HU</lang>
+        <lang>id_ID</lang>
+        <lang>is_IS</lang>
+        <lang>it_IT</lang>
+        <lang>ja_JP</lang>
+        <lang>kn</lang>
+        <lang>ko_KR</lang>
+        <lang>lt_LT</lang>
+        <lang>lv_LV</lang>
+        <lang>mn_MN</lang>
+        <lang>ms_MY</lang>
+        <lang>nb_NO</lang>
+        <lang>nl_BE</lang>
+        <lang>nl_NL</lang>
+        <lang>nn_NO</lang>
+        <lang>pl_PL</lang>
+        <lang>pt_BR</lang>
+        <lang>pt_PT</lang>
+        <lang>ro_RO</lang>
+        <lang>ru_RU</lang>
+        <lang>sk_SK</lang>
+        <lang>sl_SI</lang>
+        <lang>sr_RS</lang>
+        <lang>sv_SE</lang>
+        <lang>th_TH</lang>
+        <lang>tr_TR</lang>
+        <lang>uk_UA</lang>
+        <lang>vi_VN</lang>
+        <lang>zh_CN</lang>
+        <lang>zh_HK</lang>
+        <lang>zh_TW</lang>
+    </langs>
+    <license>GPLv2+</license>
+    <tags>
+        <en>
+            <tag>Security</tag>
+            <tag>Users</tag>
+            <tag>UX</tag>
+        </en>
+    </tags>
+    <screenshots>
+        <screenshot>https://github.com/cconard96/glpi-smoothsudo-plugin/main/logo.png</screenshot>
+    </screenshots>
+</root>

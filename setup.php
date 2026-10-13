@@ -12,36 +12,36 @@ function plugin_init_smoothsudo()
 {
     global $PLUGIN_HOOKS;
 
-    $skip_active_reauth_extension = false;
+    if (Plugin::isPluginActive('smoothsudo')) {
+        $skip_active_reauth_extension = false;
 
-    $PLUGIN_HOOKS[Hooks::INIT_SESSION]['smoothsudo'] = static function () use (&$skip_active_reauth_extension) {
-        global $DB;
+        $PLUGIN_HOOKS[Hooks::INIT_SESSION]['smoothsudo'] = static function () use (&$skip_active_reauth_extension) {
+            global $DB;
 
-        $login_uid = Session::getLoginSessionUID();
-        if ($login_uid) {
-            $it = $DB->request([
-                'SELECT' => ['logged_in_at'],
-                'FROM' => 'glpi_users_sessionhistories',
-                'WHERE' => [
-                    'login_session_uid' => $login_uid,
-                    'logged_out_at' => null,
-                ],
-                'LIMIT' => '1'
-            ]);
-            if ($it->count() === 0) {
-                // Init session hook fires before the session is recorded in the DB
-                // Add a 1 minute grace period to avoid immediately asking user for password/totp after login.
-                $_SESSION['glpi_reauth_until'] = (new DateTime(Session::getCurrentTime()))->modify('+1 minute')->getTimestamp();
-                $skip_active_reauth_extension = true;
+            $login_uid = Session::getLoginSessionUID();
+            if ($login_uid) {
+                $it = $DB->request([
+                    'SELECT' => ['logged_in_at'],
+                    'FROM' => 'glpi_users_sessionhistories',
+                    'WHERE' => [
+                        'login_session_uid' => $login_uid,
+                        'logged_out_at' => null,
+                    ],
+                    'LIMIT' => '1'
+                ]);
+                if ($it->count() === 0) {
+                    // Init session hook fires before the session is recorded in the DB
+                    // Add a 1 minute grace period to avoid immediately asking user for password/totp after login.
+                    $_SESSION['glpi_reauth_until'] = (new DateTime(Session::getCurrentTime()))->modify('+1 minute')->getTimestamp();
+                    $skip_active_reauth_extension = true;
+                }
             }
+        };
+
+        if (!$skip_active_reauth_extension && !Toolbox::isAjax() && ReAuthManager::getInstance()->isReAuthenticated()) {
+            // reset the glpi_reauth_until to be the current time + ReAuthManager::REAUTH_DELAY_SECONDS
+            $_SESSION['glpi_reauth_until'] = (new DateTime(Session::getCurrentTime()))->modify('+' . ReAuthManager::REAUTH_DELAY_SECONDS . ' seconds')->getTimestamp();
         }
-    };
-
-    $reauth_until = $_SESSION['glpi_reauth_until'] ?? null;
-
-    if (!$skip_active_reauth_extension && !Toolbox::isAjax() && ReAuthManager::getInstance()->isReAuthenticated()) {
-        // reset the glpi_reauth_until to be the current time + ReAuthManager::REAUTH_DELAY_SECONDS
-        $_SESSION['glpi_reauth_until'] = (new DateTime(Session::getCurrentTime()))->modify('+'.ReAuthManager::REAUTH_DELAY_SECONDS.' seconds')->getTimestamp();
     }
 }
 
